@@ -1,11 +1,13 @@
-var prompt = require('prompt');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
+const someOtherPlaintextPassword = 'not_bacon';
 
-    prompt.start();
 
+const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
+// Store hash in your password DB.
+console.log(hash);
 
-    prompt.get(['password', 'confirm'], function (err, result) {
-
-        console.log('Command-line input received:');
-        console.log('  password:' + result.password);
-        console.log('  email:' + result.confirm);
-    });
+// Load hash from your password DB.
+const isMatch = bcrypt.compareSync(myPlaintextPassword, 'jklmn,mnbbn');
+console.log(isMatch);
